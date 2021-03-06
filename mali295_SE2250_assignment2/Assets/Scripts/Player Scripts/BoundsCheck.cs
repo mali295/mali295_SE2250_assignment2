@@ -6,7 +6,7 @@ public class BoundsCheck : MonoBehaviour
 {
     public float speed = 5f;
 
-    public float min_Y, max_Y;
+    public float min_X, max_X;
 
 
     // Start is called before the first frame update
@@ -23,29 +23,29 @@ public class BoundsCheck : MonoBehaviour
 
     void MovePlayer() {
         // for loop is used when the space is above 0 and if no key is pressed it will stay at 0
-        if (Input.GetAxisRaw("Vertical") > 0f) {
+        if (Input.GetAxisRaw("Horizontal") > 0f) {
 
              Vector3 temp = transform.position;
-             temp.y += speed * Time.deltaTime;
+             temp.x += speed * Time.deltaTime;
 
             // I am putting this for loop to show that the value cannot be greated than the 4.3 that has been set and if it is greater it will be set at 4.3
-             if (temp.y > max_Y) 
-                 temp.y = max_Y; 
+             if (temp.x > max_X) 
+                 temp.x = max_X; 
              
 
              transform.position = temp;
         
         // for loop is used when the space is below 0 and if no key is pressed it will stay at 0
-        } else if (Input.GetAxisRaw("Vertical") < 0f) {
+        } else if (Input.GetAxisRaw("Horizontal") < 0f) {
 
             Vector3 temp = transform.position;
             // using Time.deltaTime so it can move slowly/smoothly
-            temp.y -= speed * Time.deltaTime;
+            temp.x -= speed * Time.deltaTime;
 
 
             // I am putting this for loop to show that the value cannot be greated than the -4.3 that has been set and if it is smaller then the value will be set at -4.3 
-             if (temp.y < min_Y) 
-                 temp.y = min_Y; 
+             if (temp.x < min_X) 
+                 temp.x = min_X; 
              
 
             transform.position = temp;

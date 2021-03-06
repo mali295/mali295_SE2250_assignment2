@@ -9,7 +9,7 @@ public class BGScroll : MonoBehaviour
     // this is where we hold the material in order to scroll
     private MeshRenderer mesh_Renderer;
 
-    private float x_Scroll;
+    private float y_Scroll;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,9 +25,9 @@ public class BGScroll : MonoBehaviour
 
     void Scroll() {
         // time.time is the time since we started the game
-        x_Scroll = Time.time * scroll_Speed;
+        y_Scroll = Time.time * scroll_Speed;
 
-        Vector2 offset = new Vector2(x_Scroll, 0f);
+        Vector2 offset = new Vector2(y_Scroll, 0f);
         // pass the name of the texture
         mesh_Renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
     }
