@@ -14,8 +14,10 @@ public class Hero : MonoBehaviour
     public float pitchMult = 30;
 
     [Header("Set Dynamically")]
-    public float cockpitLevel = 1;
-    public float wingLevel = 1;
+    [SerializeField]
+    // this variable has a reference to the last triggering GameObject
+    private float _cockpitLevel = 1;    // having underscore because it is a private variable 
+    //public float wingLevel = 1;
 
     // this variable holds a reference to the last triggering GameObject
     private GameObject lastTriggerGo = null;
@@ -55,18 +57,31 @@ public class Hero : MonoBehaviour
         }
         lastTriggerGo = go;
 
-        if(go.tag == "Enemy") {
-            cockpitLevel--;
-            Destroy(go);
+        if(go.tag == "Enemy") {      // if the cockpit was triggered by an enemy
+            cockpitLevel--;          // Decrease the level of the cockpit by 1
+            Destroy(go);            // and Destroy the enemy
         } else {
             print("Triggered by non-Enemy: "+go.name);
         }
 
-        if(go.tag == "Enemy") {
-            wingLevel--;
-            Destroy(go);
-        } else {
-            print("Triggered by non-Enemy: "+go.name);
+        // if(go.tag == "Enemy") {    // if the wing was triggered by an enemy
+        //     wingLevel--;           // Decrease the level of the wing by 1
+        //     Destroy(go);           // and Destroy the enemy
+        // } else {
+        //     print("Triggered by non-Enemy: "+go.name);
+        // }
+    }
+
+    public float cockpitLevel {
+        get {
+            return(_cockpitLevel);
+        }
+        set {
+            _cockpitLevel = Mathf.Min(value, 4);
+            // if the shield is going to be set less than zero
+            if(value < 0) {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
