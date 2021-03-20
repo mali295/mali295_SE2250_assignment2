@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections;           // Required for Arrays and other Collections
+using System.Collections.Generic;   // Required to use Lists or Dictionaries
+using UnityEngine;                  // Required for Unity
 
 public class Hero : MonoBehaviour
 {
@@ -17,10 +17,10 @@ public class Hero : MonoBehaviour
     [SerializeField]
     // this variable has a reference to the last triggering GameObject
     private float _cockpitLevel = 1;    // having underscore because it is a private variable 
-    //public float wingLevel = 1;
+    
 
     // this variable holds a reference to the last triggering GameObject
-    private GameObject lastTriggerGo = null;
+    private GameObject _lastTriggerGo = null;
 
     void Awake() {
         if (S == null) {
@@ -49,13 +49,13 @@ public class Hero : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         Transform rootT = other.gameObject.transform.root;
         GameObject go = rootT.gameObject;
-        //print("Triggered: "+go.name);
+        
 
         //Make sure it's not the same triggering go as last time
-        if(go == lastTriggerGo) {
+        if(go == _lastTriggerGo) {
             return;
         }
-        lastTriggerGo = go;
+        _lastTriggerGo = go;
 
         if(go.tag == "Enemy") {      // if the cockpit was triggered by an enemy
             cockpitLevel--;          // Decrease the level of the cockpit by 1
@@ -64,12 +64,7 @@ public class Hero : MonoBehaviour
             print("Triggered by non-Enemy: "+go.name);
         }
 
-        // if(go.tag == "Enemy") {    // if the wing was triggered by an enemy
-        //     wingLevel--;           // Decrease the level of the wing by 1
-        //     Destroy(go);           // and Destroy the enemy
-        // } else {
-        //     print("Triggered by non-Enemy: "+go.name);
-        // }
+       
     }
 
     public float cockpitLevel {
@@ -79,7 +74,7 @@ public class Hero : MonoBehaviour
         set {
             _cockpitLevel = Mathf.Min(value, 4);
             // if the shield is going to be set less than zero
-            if(value < 0) {
+            if(value < 1) {
                 Destroy(this.gameObject);
             }
         }

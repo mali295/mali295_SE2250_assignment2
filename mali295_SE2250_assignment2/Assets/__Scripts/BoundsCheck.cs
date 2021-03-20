@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections;                // Required for Arrays and other Collections
+using System.Collections.Generic;        // Required to use Lists or Dictionaries
+using UnityEngine;                       // Required for Unity
 
 public class BoundsCheck : MonoBehaviour
 {
@@ -17,11 +17,13 @@ public class BoundsCheck : MonoBehaviour
     
 
     void Awake() {
+        // Camera.main gives you access to the first camera with the tag MainCamera in the scene
         camHeight = Camera.main.orthographicSize;
+        // is the aspect ratio of the camera in width/height as defined by the aspect ratio of the Game pane
         camWidth = camHeight * Camera.main.aspect;
     }
-    // hello
-
+    
+    // called every frame after Update() has been called on all GameObjects
     void LateUpdate() {
         Vector3 pos = transform.position;
         isOnScreen = true;
@@ -50,10 +52,11 @@ public class BoundsCheck : MonoBehaviour
             isOnScreen = true;
             offRight = offLeft = offUp = offDown = false;
         }
-        //transform.position = pos;
+        
     }
 
     // Draw the bounds in the Scene pane using OnDrawGizmos()
+    // OnDrawGizmos is a built-in MonoBehaviour method that can draw to the Scene pane
     void OnDrawGizmos() {
         if (!Application.isPlaying) return;
         Vector3 boundSize = new Vector3(camWidth*2, camHeight*2, 0.1f);

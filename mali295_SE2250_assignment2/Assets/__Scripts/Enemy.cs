@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using System.Collections;                 // Required for Arrays and other Collections
+using System.Collections.Generic;         // Required to use Lists or Dictionaries
+using UnityEngine;                        // Required for Unity
+ 
 public class Enemy : MonoBehaviour
 {
 
@@ -11,10 +11,10 @@ public class Enemy : MonoBehaviour
     public float health = 10;     // enemy health
     public int score = 100;       // Points earned for destroying this
     
-    private BoundsCheck bndCheck;
+    private BoundsCheck _bndCheck;
 
     void Awake() {
-        bndCheck = GetComponent<BoundsCheck>();
+        _bndCheck = GetComponent<BoundsCheck>();
     }
     // This is a Property: A method that acts like a field
     public Vector3 pos {
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
-        if(bndCheck != null && bndCheck.offDown) {
+        if(_bndCheck != null && _bndCheck.offDown) {
             // Were off the bottom, so destroy this gameobject
                 Destroy(gameObject);
             }
